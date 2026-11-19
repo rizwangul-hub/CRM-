@@ -1,0 +1,6 @@
+{
+  "name": "CellTrack Pro — Mobile Shop CRM & Management",
+  "description": "Complete Mobile Phone Retail Shop CRM, IMEI Inventory, POS Sales, Repairs, Warranties, Ledgers, and Business Analytics platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
