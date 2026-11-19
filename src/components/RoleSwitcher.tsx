@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Check, ChevronDown, Shield } from 'lucide-react';
 import { ROLE_PROFILES, useRole } from '../context/RoleContext';
 import { useToast } from '../context/ToastContext';
-import type { UserRole } from '../types/auth';
+import type { UserRole } from '../types/crm';
 
 const ROLE_ORDER: readonly UserRole[] = ['ADMIN', 'MANAGER', 'STAFF'];
 

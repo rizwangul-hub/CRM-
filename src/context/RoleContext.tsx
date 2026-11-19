@@ -6,7 +6,7 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import type { UserRole } from '../types/auth';
+import type { UserRole } from '../types/crm';
 
 export const DEMO_ROLE_STORAGE_KEY = 'celltrack_demo_role';
 

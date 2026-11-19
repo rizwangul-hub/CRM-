@@ -1,178 +1,202 @@
 import type { LucideIcon } from 'lucide-react';
 import {
-  LayoutDashboard,
-  Smartphone,
-  Headphones,
-  ShoppingCart,
-  Users,
-  Truck,
-  Receipt,
-  Wrench,
-  ShieldCheck,
-  RotateCcw,
   BarChart3,
-  UserCog,
+  Bell,
+  BookOpen,
+  Headphones,
+  LayoutDashboard,
+  Receipt,
+  RotateCcw,
   Settings,
+  ShieldCheck,
+  ShoppingCart,
+  Smartphone,
+  Truck,
+  UserCog,
+  Users,
+  Wallet,
+  Wrench,
+  PackagePlus,
 } from 'lucide-react';
-import type { UserRole } from '../types/auth';
-
-export type NavSectionId =
-  | 'dashboard'
-  | 'inventory'
-  | 'accessories'
-  | 'pos'
-  | 'customers'
-  | 'purchases'
-  | 'expenses'
-  | 'repairs'
-  | 'warranties'
-  | 'returns'
-  | 'reports'
-  | 'staff'
-  | 'settings';
+import type { NavSectionId, UserRole } from '../types/crm';
 
 export interface NavItem {
   id: NavSectionId;
   label: string;
-  group: 'Overview' | 'Retail Operations' | 'Service & Finance' | 'Administration';
+  shortLabel: string;
+  description: string;
   icon: LucideIcon;
-  roles: readonly UserRole[];
-  phase: number;
-  summary: string;
-  provisionedModels?: string[];
+  roles: UserRole[];
+  group: 'Core' | 'Catalog & Supply' | 'Sales & Service' | 'Finance & Admin';
 }
 
-export const NAV_ITEMS: readonly NavItem[] = [
+export const NAV_ITEMS: NavItem[] = [
   {
     id: 'dashboard',
     label: 'Dashboard',
-    group: 'Overview',
+    shortLabel: 'Home',
+    description: 'Executive overview, sales velocity, stock health, and shop operations',
     icon: LayoutDashboard,
     roles: ['ADMIN', 'MANAGER', 'STAFF'],
-    phase: 1,
-    summary: 'Real-time sales, stock, repairs, warranties, and financial analytics.',
+    group: 'Core',
   },
   {
     id: 'pos',
-    label: 'POS & Sales',
-    group: 'Retail Operations',
+    label: 'POS / New Sale',
+    shortLabel: 'POS',
+    description: 'Fast point-of-sale billing with IMEI capture, discounts, and receipts',
     icon: ShoppingCart,
     roles: ['ADMIN', 'MANAGER', 'STAFF'],
-    phase: 4,
-    summary: 'Point of Sale checkout, IMEI lookup, discounts, partial payments, and A4/thermal invoices.',
-    provisionedModels: ['Sale', 'Product', 'Customer'],
+    group: 'Core',
   },
   {
     id: 'inventory',
-    label: 'Phone Inventory',
-    group: 'Retail Operations',
+    label: 'Products & Inventory',
+    shortLabel: 'Phones',
+    description: 'Manage smartphones, IMEI stock levels, pricing, and warranty coverage',
     icon: Smartphone,
     roles: ['ADMIN', 'MANAGER', 'STAFF'],
-    phase: 2,
-    summary: 'IMEI-tracked smartphones, condition grading, stock adjustments, and movement history.',
-    provisionedModels: ['Product', 'Supplier'],
+    group: 'Catalog & Supply',
   },
   {
     id: 'accessories',
     label: 'Accessories',
-    group: 'Retail Operations',
+    shortLabel: 'Accessories',
+    description: 'Chargers, earbuds, covers, cables, power banks, and audio stock',
     icon: Headphones,
     roles: ['ADMIN', 'MANAGER', 'STAFF'],
-    phase: 2,
-    summary: 'Chargers, earbuds, covers, power banks, and SKU/barcode stock tracking.',
-    provisionedModels: ['Product', 'Supplier'],
+    group: 'Catalog & Supply',
+  },
+  {
+    id: 'suppliers',
+    label: 'Suppliers',
+    shortLabel: 'Suppliers',
+    description: 'Wholesalers, distributors, purchase volume, and payable balances',
+    icon: Truck,
+    roles: ['ADMIN', 'MANAGER'],
+    group: 'Catalog & Supply',
+  },
+  {
+    id: 'purchases',
+    label: 'Purchases',
+    shortLabel: 'Purchases',
+    description: 'Record stock inward purchase orders and track supplier payments',
+    icon: PackagePlus,
+    roles: ['ADMIN', 'MANAGER'],
+    group: 'Catalog & Supply',
   },
   {
     id: 'customers',
     label: 'Customers',
-    group: 'Retail Operations',
+    shortLabel: 'Customers',
+    description: 'Customer directory, purchase volume, credit balances, and profiles',
     icon: Users,
     roles: ['ADMIN', 'MANAGER', 'STAFF'],
-    phase: 3,
-    summary: 'Customer CRM profiles, duplicate-phone protection, credit ledger, and statements.',
-    provisionedModels: ['Customer', 'Sale'],
+    group: 'Sales & Service',
   },
   {
-    id: 'purchases',
-    label: 'Purchases & Suppliers',
-    group: 'Retail Operations',
-    icon: Truck,
-    roles: ['ADMIN', 'MANAGER'],
-    phase: 3,
-    summary: 'Supplier directory, wholesale stock purchases, cost updates, and payable ledgers.',
-    provisionedModels: ['Supplier', 'Product'],
+    id: 'sales',
+    label: 'Sales History',
+    shortLabel: 'Sales',
+    description: 'Searchable invoice archive, payment breakdown, and receipt printing',
+    icon: Receipt,
+    roles: ['ADMIN', 'MANAGER', 'STAFF'],
+    group: 'Sales & Service',
   },
   {
     id: 'repairs',
-    label: 'Repairs & Service',
-    group: 'Service & Finance',
+    label: 'Repairs & Services',
+    shortLabel: 'Repairs',
+    description: 'Repair intake tickets, technician tracking, and customer pickup status',
     icon: Wrench,
     roles: ['ADMIN', 'MANAGER', 'STAFF'],
-    phase: 6,
-    summary: 'Repair job tickets, technician workflow statuses, repair payments, and receipts.',
-    provisionedModels: ['Repair', 'Customer'],
+    group: 'Sales & Service',
   },
   {
     id: 'warranties',
-    label: 'Warranties',
-    group: 'Service & Finance',
+    label: 'Warranty Management',
+    shortLabel: 'Warranty',
+    description: 'IMEI warranty lookup, expiry alerts, and active claim coverage',
     icon: ShieldCheck,
     roles: ['ADMIN', 'MANAGER', 'STAFF'],
-    phase: 6,
-    summary: 'IMEI warranty registration, invoice lookup, and expiration tracking.',
-    provisionedModels: ['Warranty', 'Sale'],
+    group: 'Sales & Service',
   },
   {
     id: 'returns',
     label: 'Returns & Exchanges',
-    group: 'Service & Finance',
+    shortLabel: 'Returns',
+    description: 'Process invoice refunds and product exchanges with stock reconciliation',
     icon: RotateCcw,
     roles: ['ADMIN', 'MANAGER'],
-    phase: 7,
-    summary: 'Invoice return validation, IMEI verification, refunds, and device exchanges.',
-    provisionedModels: ['Sale', 'Product'],
+    group: 'Sales & Service',
+  },
+  {
+    id: 'ledger',
+    label: 'Customer Ledger',
+    shortLabel: 'Ledger',
+    description: 'Track customer receivables, record payments, and print statements',
+    icon: BookOpen,
+    roles: ['ADMIN', 'MANAGER'],
+    group: 'Finance & Admin',
   },
   {
     id: 'expenses',
     label: 'Expenses',
-    group: 'Service & Finance',
-    icon: Receipt,
-    roles: ['ADMIN'],
-    phase: 5,
-    summary: 'Shop rent, utilities, salaries, and daily/weekly/monthly expense reports.',
-    provisionedModels: ['Expense'],
+    shortLabel: 'Expenses',
+    description: 'Shop rent, utilities, salaries, transport, and operating overhead',
+    icon: Wallet,
+    roles: ['ADMIN', 'MANAGER'],
+    group: 'Finance & Admin',
   },
   {
     id: 'reports',
     label: 'Reports & Analytics',
-    group: 'Service & Finance',
+    shortLabel: 'Reports',
+    description: 'Revenue, estimated profit, stock valuation, and balance exports',
     icon: BarChart3,
     roles: ['ADMIN', 'MANAGER'],
-    phase: 8,
-    summary: 'COGS-accurate profit reports, stock valuation, ledgers, and PDF/Excel export.',
-    provisionedModels: ['Sale', 'Expense', 'Product', 'Customer', 'Supplier'],
+    group: 'Finance & Admin',
   },
   {
-    id: 'staff',
+    id: 'notifications',
+    label: 'Notifications',
+    shortLabel: 'Alerts',
+    description: 'Low stock, payment reminders, warranty alerts, and repair updates',
+    icon: Bell,
+    roles: ['ADMIN', 'MANAGER', 'STAFF'],
+    group: 'Finance & Admin',
+  },
+  {
+    id: 'users',
     label: 'User Management',
-    group: 'Administration',
+    shortLabel: 'Users',
+    description: 'Manage shop admins, managers, sales staff, and repair technicians',
     icon: UserCog,
     roles: ['ADMIN'],
-    phase: 1,
-    summary: 'Manage Admin, Manager, and Staff directory records and review activity audit logs.',
+    group: 'Finance & Admin',
   },
   {
     id: 'settings',
-    label: 'Shop Settings',
-    group: 'Administration',
+    label: 'Settings',
+    shortLabel: 'Settings',
+    description: 'Shop profile, tax rules, invoice design, alerts, and demo reset',
     icon: Settings,
     roles: ['ADMIN'],
-    phase: 8,
-    summary: 'Shop identity, PKR currency, tax rules, invoice prefix, and database backups.',
-    provisionedModels: ['ShopSettings'],
+    group: 'Finance & Admin',
   },
 ];
 
-export function getAccessibleNavItems(role: UserRole): NavItem[] {
+export const NAV_GROUPS: Array<NavItem['group']> = [
+  'Core',
+  'Catalog & Supply',
+  'Sales & Service',
+  'Finance & Admin',
+];
+
+export function getNavItemsForRole(role: UserRole): NavItem[] {
   return NAV_ITEMS.filter((item) => item.roles.includes(role));
+}
+
+export function getNavItemById(id: NavSectionId): NavItem {
+  return NAV_ITEMS.find((item) => item.id === id) || NAV_ITEMS[0];
 }
